@@ -18,6 +18,7 @@ public final class FastAnyUnionFindSet<T> extends AnyUnionFindSet<T> {
 
     @Override
     public Map<T, Set<T>> getUnionSetMap() {
+        //return getUnionSetMap(list.stream());
         Map<T, Set<T>> rv = new HashMap<>();
         unionFind.getUnionSetMap().entrySet().forEach( e -> {
             rv.put(list.get(e.getKey()), 
