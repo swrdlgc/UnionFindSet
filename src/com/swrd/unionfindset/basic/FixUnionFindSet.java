@@ -1,9 +1,7 @@
 package com.swrd.unionfindset.basic;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import com.swrd.unionfindset.IUnionFindSet;
@@ -78,16 +76,6 @@ public class FixUnionFindSet implements IUnionFindSet<Integer>{
     @Override
     public Map<Integer, Set<Integer>> getUnionSetMap() {
         return IUnionFindSet.getUnionSetMap(IntStream.range(0, getSize()).boxed(), this);
-    }
-
-    @Override
-    public List<Set<Integer>> getUnionSets(Map<Integer, Set<Integer>> map) {
-        return map.values().stream().collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Set<Integer>> getUnionSets() {
-        return getUnionSets(getUnionSetMap());
     }
 
     // debug

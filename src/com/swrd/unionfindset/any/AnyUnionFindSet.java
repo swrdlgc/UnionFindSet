@@ -1,12 +1,9 @@
 package com.swrd.unionfindset.any;
 
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 import com.swrd.unionfindset.IUnionFindSet;
 import com.swrd.unionfindset.basic.DynamicUnionFindSet;
@@ -39,7 +36,7 @@ public class AnyUnionFindSet<T> implements IUnionFindSet<T>{
 
     @Override
     public int find(T x) {
-        return unionFind.find(map.get(x));
+        return unionFind.find(getIndex(x));
     }
 
     @Override
@@ -64,15 +61,5 @@ public class AnyUnionFindSet<T> implements IUnionFindSet<T>{
     @Override
     public Map<T, Set<T>> getUnionSetMap() {
         return IUnionFindSet.getUnionSetMap(map.keySet().stream(), this);
-    }
-
-    @Override
-    public List<Set<T>> getUnionSets(Map<T, Set<T>> map) {
-        return map.values().stream().collect(Collectors.toList());
-    }
-
-    @Override
-    public List<Set<T>> getUnionSets() {
-        return getUnionSets(getUnionSetMap());
     }
 }

@@ -11,18 +11,25 @@ import java.util.stream.Stream;
 public interface IUnionFindSet<T> {
     int find(T x);
     void union(T x, T y);
+    default boolean isConnected(T x, T y) {
+        return find(x) == find(y);
+    }
 
     int getSize();
     void group();
 
     Map<T, Set<T>> getUnionSetMap();
-    List<Set<T>> getUnionSets(Map<T, Set<T>> map);
-    List<Set<T>> getUnionSets();
+    default List<Set<T>> getUnionSets(Map<T, Set<T>> map) {
+        return map.values().stream().collect(Collectors.toList());
+    }
+    default List<Set<T>> getUnionSets() {
+        return getUnionSets(getUnionSetMap());
+    }
 
     static <T> Map<T, Set<T>> getUnionSetMap(Stream<T> stream, IUnionFindSet<T> uf) {
         uf.group();
 
-        Map<Integer, Set<T>> tmp = new HashMap<>();
+        Map<Integer, Set<T>> tmp = new HashMap<>(); // key: group id
         return stream.collect(Collectors.toMap(k->k, x->{
             int px = uf.find(x);
             if(!tmp.containsKey(px)) {
