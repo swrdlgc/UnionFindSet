@@ -75,7 +75,7 @@ public class FixUnionFindSet implements IUnionFindSet<Integer>{
 
     @Override
     public Map<Integer, Set<Integer>> getUnionSetMap() {
-        return IUnionFindSet.getUnionSetMap(IntStream.range(0, getSize()).boxed(), this);
+        return getUnionSetMap(IntStream.range(0, getSize()).boxed());
     }
 
     // debug

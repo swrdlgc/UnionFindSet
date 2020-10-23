@@ -60,6 +60,6 @@ public class AnyUnionFindSet<T> implements IUnionFindSet<T>{
 
     @Override
     public Map<T, Set<T>> getUnionSetMap() {
-        return IUnionFindSet.getUnionSetMap(map.keySet().stream(), this);
+        return getUnionSetMap(map.keySet().stream());
     }
 }

@@ -18,20 +18,12 @@ public interface IUnionFindSet<T> {
     int getSize();
     void group();
 
-    Map<T, Set<T>> getUnionSetMap();
-    default List<Set<T>> getUnionSets(Map<T, Set<T>> map) {
-        return map.values().stream().collect(Collectors.toList());
-    }
-    default List<Set<T>> getUnionSets() {
-        return getUnionSets(getUnionSetMap());
-    }
-
-    static <T> Map<T, Set<T>> getUnionSetMap(Stream<T> stream, IUnionFindSet<T> uf) {
-        uf.group();
-
+    default Map<T, Set<T>> getUnionSetMap(Stream<T> stream) {
+        group();
+        
         Map<Integer, Set<T>> tmp = new HashMap<>(); // key: group id
         return stream.collect(Collectors.toMap(k->k, x->{
-            int px = uf.find(x);
+            int px = find(x);
             if(!tmp.containsKey(px)) {
                 tmp.put(px, new HashSet<>());
             }
@@ -40,5 +32,15 @@ public interface IUnionFindSet<T> {
             s.add(x);
             return s;
         }));
+    }
+
+    Map<T, Set<T>> getUnionSetMap();
+
+    default List<Set<T>> getUnionSets(Map<T, Set<T>> map) {
+        return map.values().stream().collect(Collectors.toList());
+    }
+
+    default List<Set<T>> getUnionSets() {
+        return getUnionSets(getUnionSetMap());
     }
 }
