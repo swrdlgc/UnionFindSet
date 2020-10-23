@@ -37,7 +37,7 @@ public interface IUnionFindSet<T> {
     Map<T, Set<T>> getUnionSetMap();
 
     default List<Set<T>> getUnionSets(Map<T, Set<T>> map) {
-        return map.values().stream().collect(Collectors.toList());
+        return map.values().stream().distinct().collect(Collectors.toList());
     }
 
     default List<Set<T>> getUnionSets() {

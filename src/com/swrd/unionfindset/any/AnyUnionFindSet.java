@@ -49,8 +49,7 @@ public class AnyUnionFindSet<T> implements IUnionFindSet<T>{
 
     @Override
     public int getSize() {
-        //return size.get();
-        return unionFind.getSize();
+        return size.get();
     }
 
     @Override
