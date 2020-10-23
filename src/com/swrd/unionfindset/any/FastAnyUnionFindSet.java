@@ -18,16 +18,15 @@ public final class FastAnyUnionFindSet<T> extends AnyUnionFindSet<T> {
 
     @Override
     public Map<T, Set<T>> getUnionSetMap() {
-        //return getUnionSetMap(list.stream());
-        Map<T, Set<T>> rv = new HashMap<>();
-        unionFind.getUnionSetMap().entrySet().forEach( e -> {
-            Integer key = e.getKey();
-            if(key < getSize()) {
-                rv.put(list.get(key), 
+        if(getSize() == getCapacity()) {
+            Map<T, Set<T>> rv = new HashMap<>();
+            unionFind.getUnionSetMap().entrySet().forEach( e -> {
+                rv.put(list.get(e.getKey()), 
                     e.getValue().stream().map(i->list.get(i)).collect(Collectors.toSet())
                 );
-            }
-        });
-        return rv;
+            });
+            return rv;
+        }
+        return getUnionSetMap(list.stream());
     }
 }

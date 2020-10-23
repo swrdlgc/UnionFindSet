@@ -61,4 +61,8 @@ public class AnyUnionFindSet<T> implements IUnionFindSet<T>{
     public Map<T, Set<T>> getUnionSetMap() {
         return getUnionSetMap(map.keySet().stream());
     }
+    
+    public int getCapacity() {
+        return unionFind.getSize();
+    }
 }
